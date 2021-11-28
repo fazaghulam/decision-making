@@ -49,6 +49,14 @@
   background-color: #0B96B5;
 }
 
+.bg-biru {
+  background-color: #445380;
+}
+
+.border-biru {
+  border-color: #445380;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

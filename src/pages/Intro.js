@@ -1,4 +1,5 @@
 import { ReactComponent as Ilustrasi } from "../analytics.svg";
+import { Link } from "react-router-dom";
 
 export default function Intro({ slide, setSlide }) {
   if (slide !== 0) return null;
@@ -16,7 +17,9 @@ export default function Intro({ slide, setSlide }) {
           <p className="font-bold">DALAM KONDISI</p>
           <p>BERISIKO</p>
           <div className="flex mt-4">
-            <div className="btn-start w-32 text-center text-base rounded-md cursor-pointer py-2">Mulai</div>
+            <Link to="/calculate">
+              <div className="btn-start w-32 text-center text-base rounded-md cursor-pointer py-2">Mulai</div>
+            </Link>
             <div className="flex ml-6 self-center text-base font-semibold hover:underline cursor-pointer" onClick={() => setSlide(1)}>
               <p>lihat tutorial</p>
               <svg className="w-5 h-5 self-center ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

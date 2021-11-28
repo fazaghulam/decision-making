@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Tutorial3({ slide, setSlide }) {
   if (slide !== 3) return null;
 
@@ -21,7 +23,9 @@ export default function Tutorial3({ slide, setSlide }) {
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(2)} />
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full bg-biru" />
           </div>
-          <div className="btn-start w-32 text-center text-base rounded-md cursor-pointer py-2 mt-8">Mulai</div>
+          <Link to="/calculate">
+            <div className="btn-start w-32 text-center text-base rounded-md cursor-pointer py-2 mt-8">Mulai</div>
+          </Link>
         </div>
         <div className="w-1/2 flex justify-center self-center">lalala</div>
       </div>
