@@ -28,6 +28,27 @@
   color: #61dafb;
 }
 
+.bg-image {
+  background-color: #F1F1F3;
+  height: 100vh; 
+}
+
+.text {
+  color: #445380;
+}
+
+.h-90{
+  height: 90%;
+}
+
+.btn-start {
+  background-color: #31C9BE;
+  color: white;
+}
+.btn-start:hover {
+  background-color: #0B96B5;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
