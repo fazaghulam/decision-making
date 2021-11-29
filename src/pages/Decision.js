@@ -21,20 +21,39 @@ const init = [
 ];
 
 export default function Decision() {
-  const [data, setData] = useState(init);
+  const [data, setData] = useState([]);
   const [payoff, setPayoff] = useState([[]]);
   const [exReturn, setExReturn] = useState([[]]);
   const [beli, setBeli] = useState("");
   const [jual, setJual] = useState("");
+  const [id, setId] = useState(0);
   const [permintaan, setPermintaan] = useState("");
   const [probabilitas, setProbabilitas] = useState("");
 
   const addData = () => {
     if (permintaan !== "" && probabilitas !== "") {
-      setData([...data, { permintaan: parseInt(permintaan), probabilitas: parseFloat(probabilitas) }]);
+      setData([...data, { id, permintaan: parseInt(permintaan), probabilitas: parseFloat(probabilitas) }]);
+      setId(id + 1);
     }
     setPermintaan("");
     setProbabilitas("");
+  };
+
+  const handleDeleteData = (i) => {
+    const itemRemoved = data.splice(i, 1);
+    setData(data.filter((data) => data !== itemRemoved));
+  };
+
+  const handleUpdateData = (id) => {
+    console.log(id);
+  };
+
+  // console.log(data);
+
+  const handleKeyPress = (code) => {
+    if (code === "Enter") {
+      addData();
+    }
   };
 
   const transpose = (a) => {
@@ -85,10 +104,10 @@ export default function Decision() {
   };
 
   // console.log(payoff);
-  console.log(exReturn);
+  // console.log(exReturn);
 
   useEffect(() => {
-    calculateReturn();
+    if (data.length > 0) calculateReturn();
   }, [data, beli, jual]);
 
   return (
@@ -129,6 +148,7 @@ export default function Decision() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No.</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Permintaan (Unit/Hari)</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Probabilitas</th>
+              <th></th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -138,6 +158,38 @@ export default function Decision() {
                   <td className="px-6 whitespace-nowrap">{i + 1}.</td>
                   <td className="px-6 whitespace-nowrap">{list.permintaan}</td>
                   <td className="px-6 whitespace-nowrap">{list.probabilitas}</td>
+                  <td className="flex">
+                    {/* <svg
+                      className="w-4 h-4 text-yellow-500 cursor-pointer"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      onClick={() => handleUpdateData(list.id)}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg> */}
+                    <svg
+                      className="w-4 h-4 text-red-600 cursor-pointer mx-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      onClick={() => handleDeleteData(i)}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </td>
                 </tr>
               ))) || (
               <tr>
@@ -146,9 +198,43 @@ export default function Decision() {
                 <td>-</td>
               </tr>
             )}
+            <tr>
+              <td className="px-6 whitespace-nowrap">{(data?.length && data.length + 1) || 1}.</td>
+              <td>
+                <input
+                  className="w-full px-2"
+                  type="number"
+                  value={permintaan}
+                  placeholder="input permintaan"
+                  onChange={(e) => setPermintaan(e.target.value)}
+                />
+              </td>
+              <td>
+                <input
+                  className="w-full px-2"
+                  type="number"
+                  value={probabilitas}
+                  placeholder="input probabilitas"
+                  onChange={(e) => setProbabilitas(e.target.value)}
+                  onKeyPress={(e) => handleKeyPress(e.key)}
+                />
+              </td>
+              <td className="flex justify-end">
+                <svg
+                  className="w-5 h-5 text-green-600 cursor-pointer mx-1"
+                  onClick={addData}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <div className="flex mt-2 w-1/4 divide-x divide-gray-200">
+        {/* <div className="flex mt-2 w-1/4 divide-x divide-gray-200">
           <p className="bg-white py-1 w-16 text-center">{(data?.length && data.length + 1) || 1}</p>
           <input
             className="w-1/2 px-2"
@@ -163,11 +249,12 @@ export default function Decision() {
             value={probabilitas}
             placeholder="input probabilitas"
             onChange={(e) => setProbabilitas(e.target.value)}
+            onKeyPress={(e) => handleKeyPress(e.key)}
           />
           <button className="bg-indigo-400 p-1 text-white" onClick={addData}>
             +
           </button>
-        </div>
+        </div> */}
         <p className="font-bold mt-6">Tabel Pay Off</p>
         <table className="divide-y divide-gray-200 w-1/3 bg-white">
           <thead className="bg-gray-300">
@@ -177,13 +264,13 @@ export default function Decision() {
                 rowSpan="2"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-400"
               >
-                probabilitas koran
+                probabilitas
               </td>
               <td
                 colSpan={data.length}
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-400 text-center"
               >
-                jumlah dan probabilitas permintaan koran
+                jumlah permintaan dan probabilitas
               </td>
             </tr>
             <tr>
