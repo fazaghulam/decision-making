@@ -1,25 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const init = [
-  {
-    permintaan: 10,
-    probabilitas: 0.1,
-  },
-  {
-    permintaan: 50,
-    probabilitas: 0.2,
-  },
-  {
-    permintaan: 100,
-    probabilitas: 0.3,
-  },
-  {
-    permintaan: 150,
-    probabilitas: 0.4,
-  },
-];
-
 export default function Decision() {
   const [data, setData] = useState([]);
   const [payoff, setPayoff] = useState([[]]);
@@ -43,12 +24,6 @@ export default function Decision() {
     const itemRemoved = data.splice(i, 1);
     setData(data.filter((data) => data !== itemRemoved));
   };
-
-  const handleUpdateData = (id) => {
-    console.log(id);
-  };
-
-  // console.log(data);
 
   const handleKeyPress = (code) => {
     if (code === "Enter") {
@@ -103,9 +78,6 @@ export default function Decision() {
     setExReturn(transpose(temp));
   };
 
-  // console.log(payoff);
-  // console.log(exReturn);
-
   useEffect(() => {
     if (data.length > 0) calculateReturn();
   }, [data, beli, jual]);
@@ -159,21 +131,6 @@ export default function Decision() {
                   <td className="px-6 whitespace-nowrap">{list.permintaan}</td>
                   <td className="px-6 whitespace-nowrap">{list.probabilitas}</td>
                   <td className="flex">
-                    {/* <svg
-                      className="w-4 h-4 text-yellow-500 cursor-pointer"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                      onClick={() => handleUpdateData(list.id)}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                      />
-                    </svg> */}
                     <svg
                       className="w-4 h-4 text-red-600 cursor-pointer mx-1"
                       fill="none"
@@ -191,13 +148,8 @@ export default function Decision() {
                     </svg>
                   </td>
                 </tr>
-              ))) || (
-              <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-            )}
+              ))) ||
+              null}
             <tr>
               <td className="px-6 whitespace-nowrap">{(data?.length && data.length + 1) || 1}.</td>
               <td>
@@ -234,29 +186,8 @@ export default function Decision() {
             </tr>
           </tbody>
         </table>
-        {/* <div className="flex mt-2 w-1/4 divide-x divide-gray-200">
-          <p className="bg-white py-1 w-16 text-center">{(data?.length && data.length + 1) || 1}</p>
-          <input
-            className="w-1/2 px-2"
-            type="number"
-            value={permintaan}
-            placeholder="input permintaan"
-            onChange={(e) => setPermintaan(e.target.value)}
-          />
-          <input
-            className="w-1/2 px-2"
-            type="number"
-            value={probabilitas}
-            placeholder="input probabilitas"
-            onChange={(e) => setProbabilitas(e.target.value)}
-            onKeyPress={(e) => handleKeyPress(e.key)}
-          />
-          <button className="bg-indigo-400 p-1 text-white" onClick={addData}>
-            +
-          </button>
-        </div> */}
         <p className="font-bold mt-6">Tabel Pay Off</p>
-        <table className="divide-y divide-gray-200 w-1/3 bg-white">
+        <table className="divide-y divide-gray-200 w-3/4 bg-white">
           <thead className="bg-gray-300">
             <tr>
               <td
@@ -274,16 +205,16 @@ export default function Decision() {
               </td>
             </tr>
             <tr>
-              {data?.length &&
+              {(data?.length &&
                 data.map((list, i) => (
                   <td key={i} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-400">
                     {list.permintaan} = {list.probabilitas}
                   </td>
-                ))}
+                ))) || <td>-</td>}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data?.length &&
+            {(data?.length &&
               data.map((list, i) => (
                 <tr>
                   <td key={i} className="px-6 whitespace-nowrap">
@@ -296,11 +227,11 @@ export default function Decision() {
                       </td>
                     ))}
                 </tr>
-              ))}
+              ))) || <td>-</td>}
           </tbody>
         </table>
         <p className="font-bold mt-6">Tabel Pay Off Net Cash Flows</p>
-        <table className="divide-y divide-gray-200 w-1/3 bg-white">
+        <table className="divide-y divide-gray-200 w-3/4 bg-white">
           <thead className="bg-gray-300">
             <tr>
               <td
@@ -326,16 +257,16 @@ export default function Decision() {
               </td>
             </tr>
             <tr>
-              {data?.length &&
+              {(data?.length &&
                 data.map((list, i) => (
                   <td key={i} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-400">
                     {list.probabilitas}
                   </td>
-                ))}
+                ))) || <td>-</td>}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data?.length &&
+            {(data?.length &&
               data.map((list, i) => (
                 <tr>
                   <td key={i} className="px-6 whitespace-nowrap">
@@ -348,7 +279,7 @@ export default function Decision() {
                       </td>
                     ))}
                 </tr>
-              ))}
+              ))) || <td>-</td>}
           </tbody>
         </table>
       </div>
