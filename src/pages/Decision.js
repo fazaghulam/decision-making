@@ -1,8 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const init = [
+  {
+    permintaan: 100,
+    probabilitas: 0.1,
+  },
+  {
+    permintaan: 110,
+    probabilitas: 0.2,
+  },
+  {
+    permintaan: 120,
+    probabilitas: 0.4,
+  },
+  {
+    permintaan: 130,
+    probabilitas: 0.2,
+  },
+  {
+    permintaan: 140,
+    probabilitas: 0.1,
+  },
+];
+
 export default function Decision() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(init);
   const [payoff, setPayoff] = useState([[]]);
   const [exReturn, setExReturn] = useState([[]]);
   const [beli, setBeli] = useState("");
@@ -47,9 +70,13 @@ export default function Decision() {
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data.length; j++) {
         if (data[j].permintaan < data[i].permintaan) {
-          temp[i][j] = data[j].permintaan * jual - data[i].permintaan * beli;
-        } else {
+          const diagonal = data[i].permintaan * jual - data[i].permintaan * beli;
+          temp[i][j] = diagonal - (data[i].permintaan - data[j].permintaan) * jual;
+        } else if (data[j].permintaan == data[i].permintaan) {
           temp[i][j] = data[i].permintaan * jual - data[i].permintaan * beli;
+        } else {
+          const diagonal = data[i].permintaan * jual - data[i].permintaan * beli;
+          temp[i][j] = diagonal - (data[i].permintaan - data[j].permintaan) * (beli - jual);
         }
       }
     }
@@ -77,6 +104,45 @@ export default function Decision() {
     }
     setExReturn(transpose(temp));
   };
+
+  // const calculatePayoff = () => {
+  //   var temp = new Array(data.length);
+  //   for (var i = 0; i < temp.length; i++) {
+  //     temp[i] = new Array(data.length);
+  //   }
+  //   for (let i = 0; i < data.length; i++) {
+  //     for (let j = 0; j < data.length; j++) {
+  //       if (data[j].permintaan < data[i].permintaan) {
+  //         temp[i][j] = data[j].permintaan * jual - data[i].permintaan * beli;
+  //       } else {
+  //         temp[i][j] = data[i].permintaan * jual - data[i].permintaan * beli;
+  //       }
+  //     }
+  //   }
+  //   setPayoff(transpose(temp));
+  //   return temp;
+  // };
+
+  // const calculateReturn = async () => {
+  //   const payoffRef = await calculatePayoff();
+  //   var temp = new Array(data.length);
+  //   for (var i = 0; i < temp.length; i++) {
+  //     temp[i] = new Array(data.length);
+  //   }
+  //   for (let i = 0; i < data.length; i++) {
+  //     for (let j = 0; j < data.length; j++) {
+  //       temp[i][j] = data[j].probabilitas * payoffRef[i][j];
+  //     }
+  //   }
+  //   for (let i = 0; i < temp.length; i++) {
+  //     var sum = 0;
+  //     for (let j = 0; j < temp.length; j++) {
+  //       sum += temp[i][j];
+  //     }
+  //     temp[i][temp.length] = sum;
+  //   }
+  //   setExReturn(transpose(temp));
+  // };
 
   useEffect(() => {
     if (data.length > 0) calculateReturn();
