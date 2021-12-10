@@ -1,7 +1,8 @@
-import image from "../images/tutorial1.png";
+import { Link } from "react-router-dom";
+import image from "../images/tutorial4.png";
 
-export default function Tutorial1({ slide, setSlide }) {
-  if (slide !== 1) return null;
+export default function Tutorial4({ slide, setSlide }) {
+  if (slide !== 4) return null;
 
   return (
     <div className="bg-image h-full p-8 text">
@@ -13,17 +14,20 @@ export default function Tutorial1({ slide, setSlide }) {
       <div className="h-90 flex">
         <div className="w-1/2 text-4xl self-center">
           <p>
-            Masukkan <b>harga beli</b>
+            Hasil dapat dilihat pada <b>tabel</b>
           </p>
           <p>
-            dan <b>harga jual</b>
+            dan <b>kesimpulan</b> yang ditampilkan
           </p>
           <div className="flex mt-4">
-            <div className="w-4 h-4 mr-2 cursor-pointer rounded-full bg-biru" />
+            <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(1)} />
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(2)} />
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(3)} />
-            <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(4)} />
+            <div className="w-4 h-4 mr-2 cursor-pointer rounded-full bg-biru" />
           </div>
+          <Link to="/calculate">
+            <div className="btn-start w-32 text-center text-base rounded-md cursor-pointer py-2 mt-8">Mulai</div>
+          </Link>
         </div>
         <div className="w-1/2 flex justify-center self-center">
           <img src={image} alt="tutorial image" />

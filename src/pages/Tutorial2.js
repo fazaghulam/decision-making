@@ -1,3 +1,5 @@
+import image from "../images/tutorial2.png";
+
 export default function Tutorial2({ slide, setSlide }) {
   if (slide !== 2) return null;
 
@@ -10,23 +12,20 @@ export default function Tutorial2({ slide, setSlide }) {
       </div>
       <div className="h-90 flex">
         <div className="w-1/2 text-4xl self-center">
+          <p>Pilih untuk menghitung</p>
           <p>
-            Masukkan <b>permintaan</b>
+            <b>Rugi Kesempatan</b> atau tidak
           </p>
-          <p>
-            dan <b>probabilitas</b>
-          </p>
-          <div className="text-base mt-2">
-            <p>- isi input field lalu klik tombol plus untuk menambahkan</p>
-            <p>- data dapat diubah atau dihapus dengan mengetuk kolom terkait</p>
-          </div>
           <div className="flex mt-4">
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(1)} />
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full bg-biru" />
             <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(3)} />
+            <div className="w-4 h-4 mr-2 cursor-pointer rounded-full border border-biru" onClick={() => setSlide(4)} />
           </div>
         </div>
-        <div className="w-1/2 flex justify-center self-center">lalala</div>
+        <div className="w-1/2 flex justify-center self-center">
+          <img src={image} alt="tutorial image" />
+        </div>
       </div>
       <div className="flex text-base font-semibold hover:underline cursor-pointer" onClick={() => setSlide(0)}>
         <svg className="w-5 h-5 self-center mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

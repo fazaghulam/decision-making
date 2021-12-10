@@ -1,31 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const init = [
-  {
-    permintaan: 100,
-    probabilitas: 0.1,
-  },
-  {
-    permintaan: 110,
-    probabilitas: 0.2,
-  },
-  {
-    permintaan: 120,
-    probabilitas: 0.4,
-  },
-  {
-    permintaan: 130,
-    probabilitas: 0.2,
-  },
-  {
-    permintaan: 140,
-    probabilitas: 0.1,
-  },
-];
-
 export default function Decision() {
-  const [data, setData] = useState(init);
+  const [data, setData] = useState([]);
   const [payoff, setPayoff] = useState([[]]);
   const [exReturn, setExReturn] = useState([[]]);
   const [beli, setBeli] = useState("");
@@ -344,9 +321,13 @@ export default function Decision() {
           </tbody>
         </table>
         <p className="font-bold mt-6">Kesimpulan</p>
-        <p>
-          Total produksi yang harus disediakan adalah sejumlah <b>{data[hasil].permintaan}</b>
-        </p>
+        {hasil ? (
+          <p>
+            Total produksi yang harus disediakan adalah sejumlah <b>{data[hasil].permintaan}</b>
+          </p>
+        ) : (
+          <p>-</p>
+        )}
       </div>
     </div>
   );

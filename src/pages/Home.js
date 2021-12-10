@@ -3,6 +3,7 @@ import Intro from "./Intro";
 import Tutorial1 from "./Tutorial1";
 import Tutorial2 from "./Tutorial2";
 import Tutorial3 from "./Tutorial3";
+import Tutorial4 from "./Tutorial4";
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
@@ -15,6 +16,7 @@ export default function Home() {
       <Tutorial1 slide={slide} setSlide={setSlide} />
       <Tutorial2 slide={slide} setSlide={setSlide} />
       <Tutorial3 slide={slide} setSlide={setSlide} />
+      <Tutorial4 slide={slide} setSlide={setSlide} />
     </div>
   );
 }
