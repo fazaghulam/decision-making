@@ -33,6 +33,7 @@ export default function Decision() {
   const [id, setId] = useState(0);
   const [permintaan, setPermintaan] = useState("");
   const [probabilitas, setProbabilitas] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   const addData = () => {
     if (permintaan !== "" && probabilitas !== "") {
@@ -67,19 +68,32 @@ export default function Decision() {
     for (var i = 0; i < temp.length; i++) {
       temp[i] = new Array(data.length);
     }
-    for (let i = 0; i < data.length; i++) {
-      for (let j = 0; j < data.length; j++) {
-        if (data[j].permintaan < data[i].permintaan) {
-          const diagonal = data[i].permintaan * jual - data[i].permintaan * beli;
-          temp[i][j] = diagonal - (data[i].permintaan - data[j].permintaan) * jual;
-        } else if (data[j].permintaan == data[i].permintaan) {
-          temp[i][j] = data[i].permintaan * jual - data[i].permintaan * beli;
-        } else {
-          const diagonal = data[i].permintaan * jual - data[i].permintaan * beli;
-          temp[i][j] = diagonal - (data[i].permintaan - data[j].permintaan) * (beli - jual);
+    if (toggle) {
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < data.length; j++) {
+          if (data[j].permintaan < data[i].permintaan) {
+            const diagonal = data[i].permintaan * jual - data[i].permintaan * beli;
+            temp[i][j] = diagonal - (data[i].permintaan - data[j].permintaan) * jual;
+          } else if (data[j].permintaan === data[i].permintaan) {
+            temp[i][j] = data[i].permintaan * jual - data[i].permintaan * beli;
+          } else {
+            const diagonal = data[i].permintaan * jual - data[i].permintaan * beli;
+            temp[i][j] = diagonal - (data[i].permintaan - data[j].permintaan) * (beli - jual);
+          }
+        }
+      }
+    } else {
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < data.length; j++) {
+          if (data[j].permintaan < data[i].permintaan) {
+            temp[i][j] = data[j].permintaan * jual - data[i].permintaan * beli;
+          } else {
+            temp[i][j] = data[i].permintaan * jual - data[i].permintaan * beli;
+          }
         }
       }
     }
+
     setPayoff(transpose(temp));
     return temp;
   };
@@ -105,48 +119,9 @@ export default function Decision() {
     setExReturn(transpose(temp));
   };
 
-  // const calculatePayoff = () => {
-  //   var temp = new Array(data.length);
-  //   for (var i = 0; i < temp.length; i++) {
-  //     temp[i] = new Array(data.length);
-  //   }
-  //   for (let i = 0; i < data.length; i++) {
-  //     for (let j = 0; j < data.length; j++) {
-  //       if (data[j].permintaan < data[i].permintaan) {
-  //         temp[i][j] = data[j].permintaan * jual - data[i].permintaan * beli;
-  //       } else {
-  //         temp[i][j] = data[i].permintaan * jual - data[i].permintaan * beli;
-  //       }
-  //     }
-  //   }
-  //   setPayoff(transpose(temp));
-  //   return temp;
-  // };
-
-  // const calculateReturn = async () => {
-  //   const payoffRef = await calculatePayoff();
-  //   var temp = new Array(data.length);
-  //   for (var i = 0; i < temp.length; i++) {
-  //     temp[i] = new Array(data.length);
-  //   }
-  //   for (let i = 0; i < data.length; i++) {
-  //     for (let j = 0; j < data.length; j++) {
-  //       temp[i][j] = data[j].probabilitas * payoffRef[i][j];
-  //     }
-  //   }
-  //   for (let i = 0; i < temp.length; i++) {
-  //     var sum = 0;
-  //     for (let j = 0; j < temp.length; j++) {
-  //       sum += temp[i][j];
-  //     }
-  //     temp[i][temp.length] = sum;
-  //   }
-  //   setExReturn(transpose(temp));
-  // };
-
   useEffect(() => {
     if (data.length > 0) calculateReturn();
-  }, [data, beli, jual]);
+  }, [data, beli, jual, toggle]);
 
   return (
     <div className="p-8 pb-16 text">
@@ -179,7 +154,21 @@ export default function Decision() {
         />
       </div>
       <div className="mt-6 text-left">
-        <p className="font-bold">Data Permintaan dan Probabilitas</p>
+        <div className="flex">
+          <p className="font-bold">Hitung Rugi kesempatan</p>
+          <div
+            className={
+              `ml-3 w-11 h-6 px-1 self-center rounded-full flex cursor-pointer ` + (toggle ? "justify-end bg-blue-500" : "justify-start bg-gray-300")
+            }
+            onClick={() => setToggle(!toggle)}
+          >
+            <div className="bg-white w-4 h-4 self-center rounded-full" />
+          </div>
+        </div>
+        <p>
+          nb: aktifkan untuk menghitung rugi kesempatan yaitu berupa keuntungan yang menjadi hilang karena pembeli datang tetapi tidak bisa terlayani
+        </p>
+        <p className="font-bold mt-6">Data Permintaan dan Probabilitas</p>
         <table className="divide-y divide-gray-200 w-1/4 bg-white">
           <thead className="bg-gray-300">
             <tr>
