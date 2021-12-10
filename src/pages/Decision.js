@@ -33,6 +33,7 @@ export default function Decision() {
   const [id, setId] = useState(0);
   const [permintaan, setPermintaan] = useState("");
   const [probabilitas, setProbabilitas] = useState("");
+  const [hasil, setHasil] = useState(null);
   const [toggle, setToggle] = useState(false);
 
   const addData = () => {
@@ -100,6 +101,7 @@ export default function Decision() {
 
   const calculateReturn = async () => {
     const payoffRef = await calculatePayoff();
+    var max = 0;
     var temp = new Array(data.length);
     for (var i = 0; i < temp.length; i++) {
       temp[i] = new Array(data.length);
@@ -115,6 +117,10 @@ export default function Decision() {
         sum += temp[i][j];
       }
       temp[i][temp.length] = sum;
+      if (sum > max) {
+        setHasil(i);
+        max = sum;
+      }
     }
     setExReturn(transpose(temp));
   };
@@ -324,12 +330,12 @@ export default function Decision() {
             {(data?.length &&
               data.map((list, i) => (
                 <tr>
-                  <td key={i} className="px-6 whitespace-nowrap">
+                  <td key={i} className={`px-6 whitespace-nowrap ` + (i == hasil ? "font-bold" : "")}>
                     ER = {list.permintaan}
                   </td>
                   {exReturn?.length &&
                     exReturn.map((list, j) => (
-                      <td key={j} className="px-6 whitespace-nowrap">
+                      <td key={j} className={`px-6 whitespace-nowrap ` + (i == hasil ? "font-bold" : "")}>
                         {list[i]}
                       </td>
                     ))}
@@ -337,6 +343,10 @@ export default function Decision() {
               ))) || <td>-</td>}
           </tbody>
         </table>
+        <p className="font-bold mt-6">Kesimpulan</p>
+        <p>
+          Total produksi yang harus disediakan adalah sejumlah <b>{data[hasil].permintaan}</b>
+        </p>
       </div>
     </div>
   );
