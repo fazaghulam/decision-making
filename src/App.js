@@ -6,7 +6,7 @@ import Decision from "./pages/Decision";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={window.location.pathname || ""}>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/calculate" component={Decision} />
