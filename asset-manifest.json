@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/decision-making/static/css/main.a7cd0929.chunk.css",
+    "main.js": "/decision-making/static/js/main.5c385001.chunk.js",
+    "main.js.map": "/decision-making/static/js/main.5c385001.chunk.js.map",
+    "runtime-main.js": "/decision-making/static/js/runtime-main.8259dc15.js",
+    "runtime-main.js.map": "/decision-making/static/js/runtime-main.8259dc15.js.map",
+    "static/js/2.c3b81328.chunk.js": "/decision-making/static/js/2.c3b81328.chunk.js",
+    "static/js/2.c3b81328.chunk.js.map": "/decision-making/static/js/2.c3b81328.chunk.js.map",
+    "static/js/3.3fee7729.chunk.js": "/decision-making/static/js/3.3fee7729.chunk.js",
+    "static/js/3.3fee7729.chunk.js.map": "/decision-making/static/js/3.3fee7729.chunk.js.map",
+    "index.html": "/decision-making/index.html",
+    "static/css/main.a7cd0929.chunk.css.map": "/decision-making/static/css/main.a7cd0929.chunk.css.map",
+    "static/js/2.c3b81328.chunk.js.LICENSE.txt": "/decision-making/static/js/2.c3b81328.chunk.js.LICENSE.txt",
+    "static/media/analytics.b52e6da2.svg": "/decision-making/static/media/analytics.b52e6da2.svg",
+    "static/media/tutorial1.51620ffb.png": "/decision-making/static/media/tutorial1.51620ffb.png",
+    "static/media/tutorial2.9e70b621.png": "/decision-making/static/media/tutorial2.9e70b621.png",
+    "static/media/tutorial3.a8342bc2.png": "/decision-making/static/media/tutorial3.a8342bc2.png",
+    "static/media/tutorial4.306648ee.png": "/decision-making/static/media/tutorial4.306648ee.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8259dc15.js",
+    "static/js/2.c3b81328.chunk.js",
+    "static/css/main.a7cd0929.chunk.css",
+    "static/js/main.5c385001.chunk.js"
+  ]
+}
