@@ -6,6 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+LIVE DEMO: https://fazaghulam.github.io/decision-making
+
 ### `npm start`
 
 Runs the app in the development mode.\
